@@ -1,4 +1,4 @@
-package com.zzx.util.annotation;
+package com.zzx.frame.util.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

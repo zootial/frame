@@ -1,4 +1,4 @@
-package com.zzx.domain;
+package com.zzx.frame.domain;
 
 import java.util.Date;
 

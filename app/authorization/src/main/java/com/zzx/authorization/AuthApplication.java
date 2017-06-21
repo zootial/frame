@@ -1,4 +1,4 @@
-package com.zzx.testapp1;
+package com.zzx.authorization;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,9 +10,9 @@ import com.zzx.frame.FrameConfig;
 @SpringBootApplication
 @EnableTransactionManagement
 @ComponentScan(basePackageClasses = FrameConfig.class)
-public class DemoApplication {
+public class AuthApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(AuthApplication.class, args);
 	}
 }

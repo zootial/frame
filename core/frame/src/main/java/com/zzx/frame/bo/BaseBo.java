@@ -1,13 +1,9 @@
-package com.zzx.bo;
-
-import java.io.Serializable;
+package com.zzx.frame.bo;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public abstract class CommonBo<T, ID extends Serializable> {
+public abstract class BaseBo {
 
 	protected Log log = LogFactory.getLog(getClass());
-	
-	
 }

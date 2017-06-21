@@ -1,4 +1,4 @@
-package com.zzx.dao;
+package com.zzx.frame.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
-import com.zzx.domain.PO;
+import com.zzx.frame.domain.PO;
 
 public class CommonDaoImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements CommonDao<T, ID> {
 

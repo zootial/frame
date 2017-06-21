@@ -1,4 +1,4 @@
-package com.zzx.dao;
+package com.zzx.frame.dao;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.zzx.util;
+package com.zzx.frame.util;
 
 import javax.annotation.PostConstruct;
 
@@ -13,7 +13,7 @@ import org.springframework.aop.support.annotation.AnnotationMatchingPointcut;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 
-import com.zzx.util.annotation.Elapsed;
+import com.zzx.frame.util.annotation.Elapsed;
 
 @Configuration
 @ConditionalOnProperty(name = "log.elapsed", havingValue = "true")
