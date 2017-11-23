@@ -3,7 +3,7 @@ package com.zzx.testapp1.domain;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 
-import com.zzx.frame.domain.PO;
+import com.zzx.common.dao.domain.PO;
 
 @Entity
 @NamedQuery(name = "Person.withNameAndAddressNamedQuery", query = "select p from Person p where p.name=?1 and address=?2")

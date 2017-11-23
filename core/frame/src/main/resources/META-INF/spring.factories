@@ -1,3 +1,0 @@
-# Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.zzx.util.RwDataSourceAutoConfig,com.zzx.util.LogElapsedAutoConfig
