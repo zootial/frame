@@ -14,10 +14,12 @@ public class PO {
 	@GeneratedValue
 	private Long id;
 	
-	@Column(name = "creation_date")
+	@Column(name = "create_date", updatable = false)
+	@javax.persistence.Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date creationDate;
 
-	@Column(name = "update_date")
+	@Column(name = "update_date", insertable = false)
+	@javax.persistence.Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date updateDate;
 
 	public Long getId() {

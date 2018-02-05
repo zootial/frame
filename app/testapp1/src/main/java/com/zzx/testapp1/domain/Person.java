@@ -10,9 +10,9 @@ import com.zzx.common.dao.domain.PO;
 public class Person extends PO {
 
 	private String name;
-	
+
 	private Integer age;
-	
+
 	private String address;
 
 	public String getName() {
@@ -38,6 +38,5 @@ public class Person extends PO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
-	
+
 }

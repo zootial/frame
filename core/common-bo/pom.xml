@@ -29,5 +29,10 @@
 		<artifactId>common</artifactId>
 		<version>${artifact-version}</version>
 	</dependency>
+	<dependency>
+		<groupId>com.zzx</groupId>
+		<artifactId>common-entity</artifactId>
+		<version>${artifact-version}</version>
+	</dependency>
   </dependencies>
 </project>

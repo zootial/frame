@@ -1,0 +1,14 @@
+menu	菜单表(菜单：显示执行)
+code	菜单编码
+name	菜单名称
+parentCode	父级菜单编码
+linkUri	链接URI
+iconUri	图标URI
+
+
+file	文件表(文件：显示下载)
+code	文件编码
+name	文件名称
+accessUri	访问URI
+suffix	后缀
+byteSize	byte大小
