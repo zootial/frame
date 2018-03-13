@@ -1,6 +1,7 @@
 package ${controllerPackage};
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.alibaba.fastjson.JSON;
+import com.zzx.common.entity.ActionResult;
 import ${domainPackage}.${domainClassName};
 <#if servicePackage??>
 import ${servicePackage}.${domainClassName}${serviceSuffix};
@@ -28,120 +30,105 @@ import ${serviceImplPackage}.${domainClassName}${serviceSuffix}${implSuffix};
 public class ${domainClassName}${controllerSuffix} {
 
     <#if servicePackage??>
-	@Autowired
-	private ${domainClassName}${serviceSuffix} ${domainClassName?uncap_first}${serviceSuffix};
-	<#elseif serviceImplPackage??>
-	@Autowired
-	private ${domainClassName}${serviceSuffix}${implSuffix} ${domainClassName?uncap_first}${serviceSuffix};
-	</#if>
-	
-	<#if json>
-	/**
-	 * for JSON
-	 */
-	@RequestMapping(method=RequestMethod.GET, value="/{id}",
-			produces="application/json")
-	@ResponseBody
-	public ${domainClassName} get(@PathVariable String id) {
-		return null;
-	}
-	</#if>
-	
-	<#if html>
-	/**
-	 * for HTML
-	 */
-	@RequestMapping(method=RequestMethod.GET, value="/{id}",
-			produces="text/html")
-	public String view(@PathVariable String id, ModelMap map) {
-		${domainClassName} model = null;
-		map.put("${domainClassName?uncap_first}", model);
-		return "";
-	}
-	</#if>
-	
-	<#if json>
-	/**
-	 * for JSON
-	 */
-	//@RequestMapping(method=RequestMethod.POST, value="/add",
-	//		produces="application/json", consumes="application/json")
-    //@ResponseBody
-	//public JsonResult add(@RequestBody String content) {
-	//	${domainClassName} model = JSONObject.parseObject(content, ${domainClassName}.class);
-	//	${domainClassName?uncap_first}${serviceSuffix}.add(model);
-	//	return JsonResult.success(model);
-	//}
-	</#if>
-	
-	<#if html>
-	/**
-	 * for HTML
-	 */
-	@RequestMapping(method=RequestMethod.POST, value="/add",
-			produces="text/html")
-	public String add(@ModelAttribute("${domainClassName?uncap_first}") ${domainClassName} model) {
-		//${domainClassName?uncap_first}${serviceSuffix}.add(model);
-		return "";
-	}
-	</#if>
-	
-	<#if json>
-	/**
-	 * for JSON
-	 */
-	//@RequestMapping(method=RequestMethod.POST, value="/{id}",
-	//		produces="application/json")
-	//@ResponseBody
-	//public JsonResult remove(@PathVariable String id) {
-	//	int count = ${domainClassName?uncap_first}${serviceSuffix}.removeById(Long.valueOf(id));
-	//	if(count > 0){
-	//		return JsonResult.success(count);
-	//	} else {
-	//		return JsonResult.fail(count);
-	//	}
-	//}
-	</#if>
-	
-	<#if html>
-	/**
-	 * for HTML
-	 */
-	@RequestMapping(method=RequestMethod.POST, value="/{id}",
-			produces="text/html")
-	public String del(@PathVariable String id) {
-		//${domainClassName?uncap_first}${serviceSuffix}.removeById(Long.valueOf(id));
-		return "";
-	}
-	</#if>
+    @Autowired
+    private ${domainClassName}${serviceSuffix} ${domainClassName?uncap_first}${serviceSuffix};
+    <#elseif serviceImplPackage??>
+    @Autowired
+    private ${domainClassName}${serviceSuffix}${implSuffix} ${domainClassName?uncap_first}${serviceSuffix};
+    </#if>
 
-	<#if json>
-	/**
-	 * for JSON
-	 */
-	//@RequestMapping(method=RequestMethod.POST, value="/modify",
-	//		produces="application/json", consumes="application/json")
-	//@ResponseBody
-	//public JsonResult modify(@RequestBody String content) {
-	//	${domainClassName} model = JSONObject.parseObject(content, ${domainClassName}.class);
-	//	int count = ${domainClassName?uncap_first}${serviceSuffix}.modify(model);
-	//	if(count > 0){
-	//		return JsonResult.success(count);
-	//	} else {
-	//		return JsonResult.fail(count);
-	//	}
-	//}
-	</#if>
-	
-	<#if html>
-	/**
-	 * for HTML
-	 */
-	@RequestMapping(method=RequestMethod.POST, value="/modify",
-			produces="text/html")
-	public String modify(@ModelAttribute("${domainClassName?uncap_first}") ${domainClassName} model) {
-		//${domainClassName?uncap_first}${serviceSuffix}.modify(model);
-		return "";
-	}
-	</#if>
+    <#if json>
+    /**
+     * for JSON
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ${domainClassName} get(@PathVariable String id) {
+        ${domainClassName} model = ${domainClassName?uncap_first}${serviceSuffix}.findOne(Long.valueOf(id));
+        return model;
+    }
+    </#if>
+
+    <#if html>
+    /**
+     * for HTML
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}", produces = MediaType.TEXT_HTML_VALUE)
+    public String view(@PathVariable String id, ModelMap map) {
+        ${domainClassName} model = ${domainClassName?uncap_first}${serviceSuffix}.findOne(Long.valueOf(id));
+        map.put("${domainClassName?uncap_first}", model);
+        return "";
+    }
+    </#if>
+
+    <#if json>
+    /**
+     * for JSON
+     */
+    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ActionResult create(@RequestBody String content) {
+        ${domainClassName} model = JSON.parseObject(content, ${domainClassName}.class);
+        ${domainClassName?uncap_first}${serviceSuffix}.save(model);
+        return ActionResult.success(model.getId());
+    }
+    </#if>
+
+    <#if html>
+    /**
+     * for HTML
+     */
+    @RequestMapping(method = RequestMethod.POST, produces = MediaType.TEXT_HTML_VALUE)
+    public String add(@ModelAttribute("${domainClassName?uncap_first}") ${domainClassName} model) {
+        ${domainClassName?uncap_first}${serviceSuffix}.save(model);
+        return "";
+    }
+    </#if>
+
+    <#if json>
+    /**
+     * for JSON
+     */
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ActionResult delete(@PathVariable String id) {
+        ${domainClassName?uncap_first}${serviceSuffix}.delete(Long.valueOf(id));
+        return ActionResult.success();
+    }
+    </#if>
+
+    <#if html>
+    /**
+     * for HTML
+     */
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}", produces = MediaType.TEXT_HTML_VALUE)
+    public String remove(@PathVariable String id) {
+        ${domainClassName?uncap_first}${serviceSuffix}.delete(Long.valueOf(id));
+        return "";
+    }
+    </#if>
+
+    <#if json>
+    /**
+     * for JSON
+     */
+    @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ActionResult update(@RequestBody String content) {
+        ${domainClassName} model = JSON.parseObject(content, ${domainClassName}.class);
+        ${domainClassName?uncap_first}${serviceSuffix}.save(model);
+        return ActionResult.success();
+    }
+    </#if>
+
+    <#if html>
+    /**
+     * for HTML
+     */
+    @RequestMapping(method = RequestMethod.PUT, produces = MediaType.TEXT_HTML_VALUE)
+    public String modify(@ModelAttribute("${domainClassName?uncap_first}") ${domainClassName} model) {
+        ${domainClassName?uncap_first}${serviceSuffix}.save(model);
+        return "";
+    }
+    </#if>
 }
