@@ -3,7 +3,6 @@ package com.zzx.common.dao;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,42 +23,40 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
-import com.zzx.common.dao.domain.PO;
-
 public class CommonDaoImpl<T, ID extends Serializable> extends SimpleJpaRepository<T, ID> implements CommonDao<T, ID> {
 
 	private final EntityManager entityManager;
-	private final JpaEntityInformation<T, ID> entityInformation;
+//	private final JpaEntityInformation<T, ID> entityInformation;
 
 	public CommonDaoImpl(JpaEntityInformation<T, ID> entityInformation, EntityManager em) {
 		super(entityInformation, em);
 		this.entityManager = em;
-		this.entityInformation = entityInformation;
+//		this.entityInformation = entityInformation;
 	}
 	
-	@Override
-	@Transactional
-	public <S extends T> S save(S entity) {
-		boolean isPo = entity instanceof PO;
-		if (this.entityInformation.isNew(entity)) {
-			if(isPo) {
-				PO po = (PO)entity;
-				po.setCreationDate(new Date());
-			}
-			this.entityManager.persist(entity);
-			return entity;
-		} else {
-			if(isPo) {
-				PO po = (PO)entity;
-				po.setUpdateDate(new Date());
-			}
-			return this.entityManager.merge(entity);
-		}
-	}
+//	@Override
+//	@Transactional
+//	public <S extends T> S save(S entity) {
+//		boolean isPo = entity instanceof PO;
+//		if (this.entityInformation.isNew(entity)) {
+//			if(isPo) {
+//				PO po = (PO)entity;
+//				po.setCreationDate(new Date());
+//			}
+//			this.entityManager.persist(entity);
+//			return entity;
+//		} else {
+//			if(isPo) {
+//				PO po = (PO)entity;
+//				po.setUpdateDate(new Date());
+//			}
+//			return this.entityManager.merge(entity);
+//		}
+//	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public Page<T> findByAuto(T example, Pageable pageable) {
+	public Page<T> find(T example, Pageable pageable) {
 		return findAll(byAuto(entityManager, example), pageable);
 	}
 

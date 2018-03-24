@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- Viewport metatags -->
+<!-- <meta name="HandheldFriendly" content="true" />
+<meta name="MobileOptimized" content="320" /> -->
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+
+<title>错误页面</title>
+
+</head>
+
+<body>
+ <div id="da-error-code">
+      ERROR <span>${status}</span>
+  </div>
+  <p th:if="${message}"  th:text="${message}"></p>
+  <p th:if="${url}"  th:text="${url}"></p>
+  <pre th:text="${exception}" style="display: none;"></pre>
+</body>
+
+</html>

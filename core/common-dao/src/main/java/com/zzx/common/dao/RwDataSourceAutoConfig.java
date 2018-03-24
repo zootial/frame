@@ -28,7 +28,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -38,9 +37,6 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
 @Configuration
-
-@EnableJpaRepositories(repositoryBaseClass = CommonDaoImpl.class)
-
 @ConditionalOnProperty(name = "datasource.rw", havingValue = "true")
 @ConditionalOnMissingBean({ DataSource.class, XADataSource.class })
 @AutoConfigureBefore(DataSourceAutoConfiguration.class)
