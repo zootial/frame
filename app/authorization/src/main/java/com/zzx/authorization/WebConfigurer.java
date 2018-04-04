@@ -1,5 +1,6 @@
 package com.zzx.authorization;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -12,6 +13,7 @@ import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -60,7 +62,7 @@ public class WebConfigurer extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/index.html");
+        registry.addViewController("/").setViewName("index");
     }
 
     // @Override
@@ -91,7 +93,7 @@ public class WebConfigurer extends WebMvcConfigurerAdapter {
         converters.removeIf(converter -> converter instanceof MappingJackson2HttpMessageConverter);
         FastJsonHttpMessageConverter4 converter = new FastJsonHttpMessageConverter4();
 //        converter.setDefaultCharset(Charset.forName(charsetName));
-//        converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
+        converter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
         converters.add(converter);
         super.extendMessageConverters(converters);
     }

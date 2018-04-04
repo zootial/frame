@@ -12,7 +12,7 @@ import com.zzx.authorization.dao.ResourceRepository;
  * TODO:
  * 
  * @author CodeCreator
- * @Date 2018-02-01 12:14:31
+ * @Date 2018-03-30 03:08:06
  */
 @Service
 public class ResourceBo extends CommonBo<Resource, Long>  {

@@ -50,6 +50,7 @@
 			<groupId>com.zzx</groupId>
 			<artifactId>sprsecurity-support</artifactId>
 			<version>${artifact-version}</version>
+			<scope>test</scope>
 		</dependency>
 		
 		<dependency>
@@ -60,6 +61,14 @@
 		    <groupId>org.flywaydb</groupId>
 		    <artifactId>flyway-core</artifactId>
 		</dependency>
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
+        </dependency>
 		<!-- jsp dependencies -->
 		<!-- <dependency>
 			<groupId>javax.servlet</groupId>

@@ -5,14 +5,14 @@ public class PermissionUtil {
 	/**
 	 * 验证权限
 	 * 
-	 * @param limitSum
+	 * @param limitSet
 	 *            权限总和 为2的权限指数相加
 	 * @param checkVal
 	 *            具体权限
 	 * @return
 	 */
-	public static boolean checkLimit(int limitSum, int checkVal) {
-		return (limitSum & (1 << checkVal)) > 0;
+	public static boolean checkLimit(int limitSet, int checkVal) {
+		return (limitSet & (1 << checkVal)) > 0;
 	}
 
 	/**

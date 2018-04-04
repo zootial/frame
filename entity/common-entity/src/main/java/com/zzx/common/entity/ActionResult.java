@@ -1,8 +1,6 @@
 package com.zzx.common.entity;
 
-import java.io.Serializable;
-
-public abstract class ActionResult implements Serializable {
+public abstract class ActionResult extends Vo {
 	private static final long serialVersionUID = 4627923951473377223L;
 	
 	private Integer status;

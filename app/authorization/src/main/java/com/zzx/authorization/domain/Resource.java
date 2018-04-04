@@ -9,7 +9,7 @@ import com.zzx.common.dao.domain.PO;
  * TODO:
  * 
  * @author CodeCreator
- * @Date 2018-02-01 12:14:31
+ * @Date 2018-03-30 03:08:06
  */
 @Entity
 @Table(name = "resource", schema = "auth")
@@ -29,10 +29,22 @@ public class Resource extends PO {
     private java.lang.String name;
     
     /**
+     * 应用标识
+     */
+    @Column(name = "app", nullable = false)
+    private java.lang.String app;
+    
+    /**
      * 父级资源编码
      */
     @Column(name = "parent_code")
     private java.lang.String parentCode;
+    
+    /**
+     * 资源索引,可为URI
+     */
+    @Column(name = "res_index", nullable = false)
+    private java.lang.String resIndex;
     
     /**
      * 对象编码
@@ -45,6 +57,10 @@ public class Resource extends PO {
      */
     @Column(name = "obj_type", nullable = false)
     private java.lang.String objType;
+    
+    @javax.persistence.Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Column(name = "creation_date", nullable = false)
+    private java.util.Date creationDate;
     
     /**
      * 创建人编码
@@ -64,10 +80,6 @@ public class Resource extends PO {
     @Column(name = "reviser_name")
     private java.lang.String reviserName;
     
-    @javax.persistence.Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    @Column(name = "creation_date", nullable = false)
-    private java.util.Date creationDate;
-    
      
     public void setCode (java.lang.String code) {
         this.code = code;
@@ -85,12 +97,28 @@ public class Resource extends PO {
         return this.name;
     }
     
+    public java.lang.String getApp() {
+        return app;
+    }
+
+    public void setApp(java.lang.String app) {
+        this.app = app;
+    }
+
     public void setParentCode (java.lang.String parentCode) {
         this.parentCode = parentCode;
     }
     
     public java.lang.String getParentCode () {
         return this.parentCode;
+    }
+    
+    public void setResIndex (java.lang.String resIndex) {
+        this.resIndex = resIndex;
+    }
+    
+    public java.lang.String getResIndex () {
+        return this.resIndex;
     }
     
     public void setObjCode (java.lang.String objCode) {
@@ -107,6 +135,14 @@ public class Resource extends PO {
     
     public java.lang.String getObjType () {
         return this.objType;
+    }
+    
+    public void setCreationDate (java.util.Date creationDate) {
+        this.creationDate = creationDate;
+    }
+    
+    public java.util.Date getCreationDate () {
+        return this.creationDate;
     }
     
     public void setCreatorCode (java.lang.String creatorCode) {
@@ -131,14 +167,6 @@ public class Resource extends PO {
     
     public java.lang.String getReviserName () {
         return this.reviserName;
-    }
-    
-    public void setCreationDate (java.util.Date creationDate) {
-        this.creationDate = creationDate;
-    }
-    
-    public java.util.Date getCreationDate () {
-        return this.creationDate;
     }
     
 }

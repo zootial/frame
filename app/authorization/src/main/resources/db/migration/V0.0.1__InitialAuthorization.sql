@@ -53,6 +53,30 @@ INSERT INTO `action` VALUES
 UNLOCK TABLES;
 
 --
+-- Table structure for table `menu`
+--
+
+DROP TABLE IF EXISTS `menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `menu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` varchar(32) NOT NULL COMMENT '菜单编码',
+  `name` varchar(32) NOT NULL COMMENT '菜单名称',
+  `app` varchar(32) NOT NULL COMMENT '应用标识',
+  `parent_code` varchar(32) DEFAULT NULL COMMENT '父级菜单编码',
+  `link_uri` varchar(256) DEFAULT NULL COMMENT '链接URI',
+  `icon` varchar(32) DEFAULT NULL COMMENT '图标',
+  `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `creator_code` varchar(32) DEFAULT NULL,
+  `creator_name` varchar(32) DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `menu_u1` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='菜单表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `res_action`
 --
 
@@ -61,14 +85,14 @@ DROP TABLE IF EXISTS `res_action`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `res_action` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `res_code` varchar(128) NOT NULL COMMENT '资源编码',
-  `act_key` varchar(256) DEFAULT NULL COMMENT '动作Key,可为URI',
+  `res_code` varchar(32) NOT NULL COMMENT '资源编码',
+  `sub_index` varchar(56) NOT NULL COMMENT '子索引,可为子URI',
   `act_value` int(11) NOT NULL COMMENT '动作码值',
   `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `creator_code` varchar(32) DEFAULT NULL,
   `creator_name` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `res_action_u1` (`res_code`,`act_key`)
+  UNIQUE KEY `res_action_u1` (`res_code`,`sub_index`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源动作表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -81,9 +105,11 @@ DROP TABLE IF EXISTS `resource`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `resource` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `code` varchar(128) NOT NULL COMMENT '资源编码',
+  `code` varchar(32) NOT NULL COMMENT '资源编码',
   `name` varchar(64) NOT NULL COMMENT '资源名称',
-  `parent_code` varchar(128) DEFAULT NULL COMMENT '父级资源编码',
+  `app` varchar(32) NOT NULL COMMENT '应用标识',
+  `parent_code` varchar(32) DEFAULT NULL COMMENT '父级资源编码',
+  `res_index` varchar(256) NOT NULL COMMENT '资源索引,可为URI',
   `obj_code` varchar(32) DEFAULT NULL COMMENT '对象编码',
   `obj_type` varchar(16) NOT NULL COMMENT '对象类型[ENTITY,ELEMENT,FUNCTION,MENU,FILE]',
   `creation_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -92,7 +118,9 @@ CREATE TABLE `resource` (
   `update_date` datetime DEFAULT NULL,
   `reviser_name` varchar(32) DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `resouce_u1` (`code`)
+  UNIQUE KEY `resource_u1` (`code`),
+  UNIQUE KEY `resource_u2` (`res_index`),
+  KEY `resource_n1` (`app`,`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -124,8 +152,8 @@ DROP TABLE IF EXISTS `team_permission`;
 CREATE TABLE `team_permission` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `team_code` varchar(32) NOT NULL COMMENT '组编码',
-  `res_code` varchar(128) NOT NULL COMMENT '资源编码',
-  `limit_set` varchar(32) NOT NULL COMMENT '动作权限集',
+  `res_code` varchar(32) NOT NULL COMMENT '资源编码',
+  `limit_set` int(11) NOT NULL COMMENT '动作权限集',
   `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -164,8 +192,8 @@ DROP TABLE IF EXISTS `user_permission`;
 CREATE TABLE `user_permission` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_code` varchar(32) NOT NULL COMMENT '用户编码',
-  `res_code` varchar(128) NOT NULL COMMENT '资源编码',
-  `limit_set` varchar(32) NOT NULL COMMENT '动作权限集',
+  `res_code` varchar(32) NOT NULL COMMENT '资源编码',
+  `limit_set` int(11) NOT NULL COMMENT '动作权限集',
   `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),

@@ -8,7 +8,7 @@ import com.zzx.common.dao.CommonDao;
  * TODO:
  * 
  * @author CodeCreator
- * @Date 2018-02-01 12:14:31
+ * @Date 2018-03-30 03:08:06
  */
 @Transactional(readOnly = true)
 public interface UserPermissionRepository extends CommonDao<UserPermission, Long> {

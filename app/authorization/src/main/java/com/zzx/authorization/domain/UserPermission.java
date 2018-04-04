@@ -9,7 +9,7 @@ import com.zzx.common.dao.domain.PO;
  * TODO:
  * 
  * @author CodeCreator
- * @Date 2018-02-01 12:14:31
+ * @Date 2018-03-30 03:08:06
  */
 @Entity
 @Table(name = "user_permission", schema = "auth")
@@ -32,7 +32,7 @@ public class UserPermission extends PO {
      * 动作权限集
      */
     @Column(name = "limit_set", nullable = false)
-    private java.lang.String limitSet;
+    private java.lang.Integer limitSet;
     
      
     public void setUserCode (java.lang.String userCode) {
@@ -51,11 +51,11 @@ public class UserPermission extends PO {
         return this.resCode;
     }
     
-    public void setLimitSet (java.lang.String limitSet) {
+    public void setLimitSet (java.lang.Integer limitSet) {
         this.limitSet = limitSet;
     }
     
-    public java.lang.String getLimitSet () {
+    public java.lang.Integer getLimitSet () {
         return this.limitSet;
     }
     

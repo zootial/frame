@@ -1,4 +1,4 @@
-package com.zzx.testapp1;
+package com.zzx;
 
 import org.flywaydb.core.Flyway;
 
@@ -9,9 +9,9 @@ public class FlywayMigration {
 
         // Point it to the database
         flyway.setDataSource("jdbc:mysql://localhost:3306/auth?useUnicode=true&characterEncoding=UTF-8", "root", "zzx.128");
-
+//
 //        flyway.setBaselineOnMigrate(true);
-        // Start the migration
+//        // Start the migration
         flyway.migrate();
     }
 }

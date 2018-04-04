@@ -191,7 +191,6 @@ $.AdminBSB.rightSideBar = {
 *  You can manage the search bar
 *  
 */
-var $searchBar = $('.search-bar');
 $.AdminBSB.search = {
     activate: function () {
         var _this = this;
@@ -202,24 +201,25 @@ $.AdminBSB.search = {
         });
 
         //Close search click event
-        $searchBar.find('.close-search').on('click', function () {
+        $('.search-bar').find('.close-search').on('click', function () {
             _this.hideSearchBar();
         });
 
         //ESC key on pressed
-        $searchBar.find('input[type="text"]').on('keyup', function (e) {
+        $('.search-bar').find('input[type="text"]').on('keyup', function (e) {
             if (e.keyCode == 27) {
                 _this.hideSearchBar();
             }
         });
     },
     showSearchBar: function () {
-        $searchBar.addClass('open');
-        $searchBar.find('input[type="text"]').focus();
+    	$('.search-bar').addClass('open');
+    	$('.search-bar').find('input[type="text"]').focus();
+    	$('.search-bar').find('input[type="text"]').blur(this.hideSearchBar);
     },
     hideSearchBar: function () {
-        $searchBar.removeClass('open');
-        $searchBar.find('input[type="text"]').val('');
+    	$('.search-bar').removeClass('open');
+    	$('.search-bar').find('input[type="text"]').val('');
     }
 }
 //==========================================================================================================================
@@ -444,6 +444,75 @@ $.AdminBSB.browser = {
 }
 //==========================================================================================================================
 
+//Skin changer
+function skinChanger() {
+    $('.right-sidebar .demo-choose-skin li').on('click', function () {
+        var $body = $('body');
+        var $this = $(this);
+
+        var existTheme = $('.right-sidebar .demo-choose-skin li.active').data('theme');
+        $('.right-sidebar .demo-choose-skin li').removeClass('active');
+        $body.removeClass('theme-' + existTheme);
+        $this.addClass('active');
+
+        $body.addClass('theme-' + $this.data('theme'));
+    });
+    $('body').addClass('theme-blue');
+}
+
+//Skin tab content set height and show scroll
+function setSkinListHeightAndScroll(isFirstTime) {
+    var height = $(window).height() - ($('.navbar').innerHeight() + $('.right-sidebar .nav-tabs').outerHeight());
+    var $el = $('.demo-choose-skin');
+
+    if (!isFirstTime){
+      $el.slimScroll({ destroy: true }).height('auto');
+      $el.parent().find('.slimScrollBar, .slimScrollRail').remove();
+    }
+
+    $el.slimscroll({
+        height: height + 'px',
+        color: 'rgba(0,0,0,0.5)',
+        size: '6px',
+        alwaysVisible: false,
+        borderRadius: '0',
+        railBorderRadius: '0'
+    });
+}
+
+//Setting tab content set height and show scroll
+function setSettingListHeightAndScroll(isFirstTime) {
+    var height = $(window).height() - ($('.navbar').innerHeight() + $('.right-sidebar .nav-tabs').outerHeight());
+    var $el = $('.right-sidebar .demo-settings');
+
+    if (!isFirstTime){
+      $el.slimScroll({ destroy: true }).height('auto');
+      $el.parent().find('.slimScrollBar, .slimScrollRail').remove();
+    }
+
+    $el.slimscroll({
+        height: height + 'px',
+        color: 'rgba(0,0,0,0.5)',
+        size: '6px',
+        alwaysVisible: false,
+        borderRadius: '0',
+        railBorderRadius: '0'
+    });
+}
+
+//Activate notification and task dropdown on top right menu
+function activateNotificationAndTasksScroll() {
+    $('.navbar-right .dropdown-menu .body .menu').slimscroll({
+        height: '254px',
+        color: 'rgba(0,0,0,0.5)',
+        size: '4px',
+        alwaysVisible: false,
+        borderRadius: '0',
+        railBorderRadius: '0'
+    });
+}
+//==========================================================================================================================
+
 $(function () {
     $.AdminBSB.browser.activate();
     $.AdminBSB.leftSideBar.activate();
@@ -455,4 +524,16 @@ $(function () {
     $.AdminBSB.search.activate();
 
     setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
+    
+    
+    //==================
+    skinChanger();
+    activateNotificationAndTasksScroll();
+
+    setSkinListHeightAndScroll(true);
+    setSettingListHeightAndScroll(true);
+    $(window).resize(function () {
+        setSkinListHeightAndScroll(false);
+        setSettingListHeightAndScroll(false);
+    });
 });

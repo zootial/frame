@@ -9,7 +9,7 @@ import com.zzx.common.dao.domain.PO;
  * TODO:
  * 
  * @author CodeCreator
- * @Date 2018-02-01 12:14:31
+ * @Date 2018-03-30 03:08:06
  */
 @Entity
 @Table(name = "res_action", schema = "auth")
@@ -23,10 +23,10 @@ public class ResAction extends PO {
     private java.lang.String resCode;
     
     /**
-     * 动作Key,可为URI
+     * 子索引,可为子URI
      */
-    @Column(name = "act_key")
-    private java.lang.String actKey;
+    @Column(name = "sub_index", nullable = false)
+    private java.lang.String subIndex;
     
     /**
      * 动作码值
@@ -49,12 +49,12 @@ public class ResAction extends PO {
         return this.resCode;
     }
     
-    public void setActKey (java.lang.String actKey) {
-        this.actKey = actKey;
+    public void setSubIndex (java.lang.String subIndex) {
+        this.subIndex = subIndex;
     }
     
-    public java.lang.String getActKey () {
-        return this.actKey;
+    public java.lang.String getSubIndex () {
+        return this.subIndex;
     }
     
     public void setActValue (java.lang.Integer actValue) {
